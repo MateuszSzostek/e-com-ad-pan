@@ -1,0 +1,7 @@
+.access {
+  width: calc(100vw - 14px);
+  height: calc(100vh - 22px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
