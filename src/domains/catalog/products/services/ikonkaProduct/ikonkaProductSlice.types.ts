@@ -1,13 +1,3 @@
-export interface IFetchAllIkonkaProductsResponse {
-  allIkonkaProductsFetched: boolean;
-}
-export interface IFetchAllIkonkaProductsRequest {}
-
-export interface ITransferAllIkonkaProductsToProductsResponse {
-  allIkonkaIkonsTransferedToProducts: boolean;
-}
-export interface ITransferAllIkonkaProductsToProductsRequest {}
-
 export interface IIkonkaProduct {
   kod_kreskowy: string;
   nazwa: string;
@@ -33,10 +23,20 @@ export interface IIkonkaProduct {
   dlugosc: string;
 }
 
-export interface IGetAllIkonkaProductResponse {
+export interface IFetchAllIkonkaProductsResponse {
+  allIkonkaProductsFetched: boolean;
+}
+export interface IFetchAllIkonkaProductsRequest {}
+
+export interface ITransferAllIkonkaProductsToProductsResponse {
+  allIkonkaIkonsTransferedToProducts: boolean;
+}
+export interface ITransferAllIkonkaProductsToProductsRequest {}
+
+export interface IGetAllIkonkaProductsResponse {
   allIkonkaProducts: IIkonkaProduct[];
 }
-export interface IGetAllIkonkaProductRequest {}
+export interface IGetAllIkonkaProductsRequest {}
 
 export interface ISaveIkonkaProductToProductsResponse {
   ikonkaProductSavedToProduct: boolean;

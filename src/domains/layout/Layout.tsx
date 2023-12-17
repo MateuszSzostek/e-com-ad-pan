@@ -66,9 +66,9 @@ export default function Layout({ children }: PropsWithChildren<ILayout>) {
         ],
       },
       {
-        key: "orders",
+        key: "accounting",
         icon: React.createElement(UserOutlined),
-        label: "Orders",
+        label: "Accounting",
         children: [
           {
             key: "orders",
@@ -88,8 +88,8 @@ export default function Layout({ children }: PropsWithChildren<ILayout>) {
         label: "Customers",
         children: [
           {
-            key: "customers",
-            label: "Customers",
+            key: "customers-list",
+            label: "Customers List",
             onClick: () => navigate("/customers"),
           },
         ],

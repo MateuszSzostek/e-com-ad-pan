@@ -23,6 +23,10 @@ export interface IProduct {
   code: string;
   length: string;
   barcode: string;
+
+  categoryMissing: boolean;
+  pendingPriceChanged: boolean;
+  pendingUpdates: boolean;
 }
 
 export interface IGetProductResponse {

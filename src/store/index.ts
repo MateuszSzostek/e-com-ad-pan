@@ -1,12 +1,23 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "../domains/catalog/products/features/counter/counterSlice";
 import { accessApi } from "../domains/access/services/access/accessSlice";
+import { productApi } from "../domains/catalog/products/services/product/productSlice";
+import { ikonkaProductApi } from "../domains/catalog/products/services/ikonkaProduct/ikonkaProductSlice";
 import userReducer from "../shared/services/user/userSlice";
+import productsReducer from "../shared/services/products/productsSlice";
+import providerProductsReducer from "../shared/services/providerProducts/providerProductsSlice";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import storage from "redux-persist/lib/storage";
-import { persistReducer, persistStore } from "redux-persist";
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
 import { combineReducers } from "@reduxjs/toolkit";
-import thunk from "redux-thunk";
 
 const persistConfig = {
   key: "root",
@@ -15,17 +26,27 @@ const persistConfig = {
 
 const reducers = combineReducers({
   accessApi: accessApi.reducer,
+  productApi: productApi.reducer,
+  ikonkaProductApi: ikonkaProductApi.reducer,
   user: userReducer,
+  products: productsReducer,
+  providerProducts: providerProductsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 export const store = configureStore({
   reducer: persistedReducer,
-  // middleware: (getDefaultMiddleware) =>
-  // getDefaultMiddleware().concat(accessApi.middleware),
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(accessApi.middleware),
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat([
+      accessApi.middleware,
+      productApi.middleware,
+      ikonkaProductApi.middleware,
+    ]),
   devTools: process.env.NODE_ENV !== "production",
 });
 

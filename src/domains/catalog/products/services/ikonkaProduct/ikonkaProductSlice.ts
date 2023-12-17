@@ -12,7 +12,11 @@ import {
   IGetIkonkaProductResponse,
   IUpdateIkonkaProductResponse,
   IUpdateIkonkaProductRequest,
+  IGetAllIkonkaProductsResponse,
+  IGetAllIkonkaProductsRequest,
 } from "./ikonkaProductSlice.types";
+import { setProviderProducts } from "../../../../../shared/services/providerProducts/providerProductsSlice";
+import { store } from "../../../../../store";
 
 export const ikonkaProductApi = createApi({
   reducerPath: "ikonkaProductApi",
@@ -25,12 +29,13 @@ export const ikonkaProductApi = createApi({
       query: () => ({
         url: `fetch-all-ikonka-products`,
         method: "GET",
+        //  headers: {
+        //   authorization: `Bearer ${store.getState().user.accessToken}`,
+        // },
       }),
       transformResponse: (response: {
         data: IFetchAllIkonkaProductsResponse;
       }) => response.data,
-      transformErrorResponse: (response: { status: string | number }) =>
-        response.status,
     }),
 
     transferAllIkonkaProductsToProducts: builder.query<
@@ -91,11 +96,37 @@ export const ikonkaProductApi = createApi({
       transformErrorResponse: (response: { status: string | number }) =>
         response.status,
     }),
+
+    getAllIkonkaProducts: builder.query<
+      IGetAllIkonkaProductsResponse,
+      IGetAllIkonkaProductsRequest
+    >({
+      query: () => ({
+        url: `get-all-ikonka-products`,
+        method: "GET",
+      }),
+
+      transformResponse: (response: IGetAllIkonkaProductsResponse) => response,
+      transformErrorResponse: (response: { status: string | number }) =>
+        response.status,
+
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(
+            setProviderProducts({
+              providerProducts: data?.allIkonkaProducts,
+            })
+          );
+        } catch (error) {}
+      },
+    }),
   }),
 });
 
 export const {
   useFetchAllIkonkaProductsQuery,
+  useGetAllIkonkaProductsQuery,
   useTransferAllIkonkaProductsToProductsQuery,
   useGetIkonkaProductQuery,
   useSaveIkonkaProductToProductsMutation,

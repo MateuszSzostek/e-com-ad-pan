@@ -2,6 +2,8 @@ import React, { PropsWithChildren, useEffect } from "react";
 import IAccess from "./Access.types";
 import "./Access.styles.css";
 import { useAuthenticationMutation } from "./services/access/accessSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 import {
   BrowserRouter as Router,
@@ -17,6 +19,8 @@ import ResetPassword from "./modules/reset-password";
 import { Col, Row } from "antd";
 
 export default function Access({}: PropsWithChildren<IAccess>) {
+  const user = useSelector((state: RootState) => state.user);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,6 +28,12 @@ export default function Access({}: PropsWithChildren<IAccess>) {
       navigate("/access/login");
     }
   }, []);
+
+  useEffect(() => {
+    if (user?.accessToken !== null) {
+      navigate("/catalog/products");
+    }
+  }, [user?.accessToken]);
 
   return (
     <Row className="access">

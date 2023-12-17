@@ -73,6 +73,7 @@ export const accessApi = createApi({
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
+          console.log(data);
           dispatch(
             setUserData({
               accessToken: data?.access_token,
@@ -81,7 +82,9 @@ export const accessApi = createApi({
               surname: data?.surname,
             })
           );
-        } catch (error) {}
+        } catch (error) {
+          console.log(error);
+        }
       },
     }),
   }),

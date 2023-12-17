@@ -26,13 +26,13 @@ export const productApi = createApi({
   baseQuery: baseJwtQuery(baseProductUrl),
   endpoints: (builder) => ({
     getProduct: builder.query<IGetProductResponse, IGetProductRequest>({
-      query: ({id}) => ({
+      query: ({ id }) => ({
         url: `product`,
         method: "GET",
-        params:{id},
-        headers: {
-          authorization: `Bearer ${store.getState().user.accessToken}`,
-        },
+        params: { id },
+        // headers: {
+        //   authorization: `Bearer ${store.getState().user.accessToken}`,
+        // },
       }),
       transformResponse: (response: { data: IGetProductResponse }) =>
         response.data,
@@ -48,9 +48,9 @@ export const productApi = createApi({
         url: `add-new-product`,
         method: "POST",
         body: newProduct,
-        headers: {
-          authorization: `Bearer ${store.getState().user.accessToken}`,
-        },
+        // headers: {
+        //   authorization: `Bearer ${store.getState().user.accessToken}`,
+        // },
       }),
       transformResponse: (response: IAddNewProductResponse) => response,
       transformErrorResponse: (response: { status: string | number }) =>
@@ -65,9 +65,9 @@ export const productApi = createApi({
         url: `update-product`,
         method: "POST",
         body: updatedProduct,
-        headers: {
-          authorization: `Bearer ${store.getState().user.accessToken}`,
-        },
+        // headers: {
+        //   authorization: `Bearer ${store.getState().user.accessToken}`,
+        // },
       }),
       transformResponse: (response: IUpdateProductResponse) => response,
       transformErrorResponse: (response: { status: string | number }) =>
@@ -76,13 +76,13 @@ export const productApi = createApi({
 
     deleteProduct: builder.query<IDeleteProductResponse, IDeleteProductRequest>(
       {
-        query: ({id}) => ({
+        query: ({ id }) => ({
           url: `delete-product`,
           method: "DELETE",
-          body:{id},
-          headers: {
-            authorization: `Bearer ${store.getState().user.accessToken}`,
-          },
+          body: { id },
+          // headers: {
+          //   authorization: `Bearer ${store.getState().user.accessToken}`,
+          // },
         }),
         transformResponse: (response: IDeleteProductResponse) => response,
         transformErrorResponse: (response: { status: string | number }) =>
@@ -94,13 +94,13 @@ export const productApi = createApi({
       ISubstituteProductResponse,
       ISubstituteProductRequest
     >({
-      query: ({firstProductId, secondProductId}) => ({
+      query: ({ firstProductId, secondProductId }) => ({
         url: `substitute-products`,
         method: "POST",
-        body: {firstProductId, secondProductId},
-        headers: {
-          authorization: `Bearer ${store.getState().user.accessToken}`,
-        },
+        body: { firstProductId, secondProductId },
+        // headers: {
+        //   authorization: `Bearer ${store.getState().user.accessToken}`,
+        // },
       }),
       transformResponse: (response: ISubstituteProductResponse) => response,
       transformErrorResponse: (response: { status: string | number }) =>
@@ -111,13 +111,13 @@ export const productApi = createApi({
       ISubstituteProductResponse,
       ISubstituteProductRequest
     >({
-      query: ({firstProductId, secondProductId}) => ({
+      query: ({ firstProductId, secondProductId }) => ({
         url: `cancel-substitute-products`,
         method: "POST",
-        body: {firstProductId, secondProductId},
-        headers: {
-          authorization: `Bearer ${store.getState().user.accessToken}`,
-        },
+        body: { firstProductId, secondProductId },
+        // headers: {
+        //   authorization: `Bearer ${store.getState().user.accessToken}`,
+        // },
       }),
       transformResponse: (response: ISubstituteProductResponse) => response,
       transformErrorResponse: (response: { status: string | number }) =>
@@ -125,13 +125,13 @@ export const productApi = createApi({
     }),
 
     linkProduct: builder.mutation<ILinkProductResponse, ILinkProductRequest>({
-      query: ({firstProductId, secondProductId}) => ({
+      query: ({ firstProductId, secondProductId }) => ({
         url: `link-products`,
         method: "POST",
-        body:{firstProductId, secondProductId},
-        headers: {
-          authorization: `Bearer ${store.getState().user.accessToken}`,
-        },
+        body: { firstProductId, secondProductId },
+        // headers: {
+        //   authorization: `Bearer ${store.getState().user.accessToken}`,
+        // },
       }),
       transformResponse: (response: ILinkProductResponse) => response,
       transformErrorResponse: (response: { status: string | number }) =>
@@ -142,13 +142,13 @@ export const productApi = createApi({
       IUnlinkProductResponse,
       IUnlinkProductRequest
     >({
-      query: ({firstProductId, secondProductId}) => ({
+      query: ({ firstProductId, secondProductId }) => ({
         url: `unlink-products`,
         method: "POST",
-        body:{firstProductId, secondProductId},
-        headers: {
-          authorization: `Bearer ${store.getState().user.accessToken}`,
-        },
+        body: { firstProductId, secondProductId },
+        // headers: {
+        //   authorization: `Bearer ${store.getState().user.accessToken}`,
+        // },
       }),
       transformResponse: (response: IUnlinkProductResponse) => response,
       transformErrorResponse: (response: { status: string | number }) =>
@@ -165,5 +165,5 @@ export const {
   useSubstituteProductMutation,
   useCancelSubstituteProductMutation,
   useLinkProductMutation,
-  useUnlinkProductMutation
+  useUnlinkProductMutation,
 } = productApi;
