@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import {
   Row,
   Col,
@@ -39,6 +39,10 @@ export default function SelectProductModal() {
     console.error(data);
   };
 
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
   return (
     <>
       <Row gutter={[m, m]}>
@@ -48,7 +52,7 @@ export default function SelectProductModal() {
           </Typography.Title>
           <Form
             ref={formRef}
-            name="selectProviderAndSelect"
+            name="selectProviderAndSelectProduct"
             labelCol={{ span: 10 }}
             style={{ maxWidth: 700 }}
             initialValues={{ remember: true }}

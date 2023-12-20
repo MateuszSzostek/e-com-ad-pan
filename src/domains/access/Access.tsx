@@ -30,7 +30,7 @@ export default function Access({}: PropsWithChildren<IAccess>) {
   }, []);
 
   useEffect(() => {
-    if (user?.accessToken !== null) {
+    if (user?.accessToken !== "") {
       navigate("/catalog/products");
     }
   }, [user?.accessToken]);

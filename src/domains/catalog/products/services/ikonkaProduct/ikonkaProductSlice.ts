@@ -16,7 +16,6 @@ import {
   IGetAllIkonkaProductsRequest,
 } from "./ikonkaProductSlice.types";
 import { setProviderProducts } from "../../../../../shared/services/providerProducts/providerProductsSlice";
-import { store } from "../../../../../store";
 
 export const ikonkaProductApi = createApi({
   reducerPath: "ikonkaProductApi",
@@ -29,9 +28,6 @@ export const ikonkaProductApi = createApi({
       query: () => ({
         url: `fetch-all-ikonka-products`,
         method: "GET",
-        //  headers: {
-        //   authorization: `Bearer ${store.getState().user.accessToken}`,
-        // },
       }),
       transformResponse: (response: {
         data: IFetchAllIkonkaProductsResponse;
@@ -104,6 +100,9 @@ export const ikonkaProductApi = createApi({
       query: () => ({
         url: `get-all-ikonka-products`,
         method: "GET",
+        // headers: {
+        //    authorization: `Bearer sddsfdgdsgdfsdfhsfhs`,
+        // },
       }),
 
       transformResponse: (response: IGetAllIkonkaProductsResponse) => response,
@@ -125,6 +124,7 @@ export const ikonkaProductApi = createApi({
 });
 
 export const {
+  useLazyFetchAllIkonkaProductsQuery,
   useFetchAllIkonkaProductsQuery,
   useGetAllIkonkaProductsQuery,
   useTransferAllIkonkaProductsToProductsQuery,

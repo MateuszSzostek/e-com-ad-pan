@@ -7,6 +7,7 @@ import type { ColumnsType } from "antd/es/table";
 import { IProduct } from "./services/product/productSlice.types";
 import { useState } from "react";
 import AddProductModal from "./modules/AddProductModal/AddProductModal";
+import { useLazyFetchAllIkonkaProductsQuery } from "./services/ikonkaProduct/ikonkaProductSlice";
 
 const columnsData: ColumnsType<IProduct> = [
   {
@@ -58,6 +59,9 @@ const columnsData: ColumnsType<IProduct> = [
 
 export default function Products() {
   const productsData = useSelector((state: RootState) => state.products);
+  const [trigger, result, lastPromiseInfo] = useLazyFetchAllIkonkaProductsQuery(
+    {}
+  );
 
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -65,6 +69,11 @@ export default function Products() {
 
   const showModal = () => {
     setOpen(true);
+  };
+
+  const synhronizeAllProvidersProducts = () => {
+    trigger({});
+    console.log(result);
   };
 
   const handleOk = () => {
@@ -89,6 +98,9 @@ export default function Products() {
         <Row>
           <Button type="primary" onClick={showModal}>
             ADD PRODUCT
+          </Button>
+          <Button type="primary" onClick={synhronizeAllProvidersProducts}>
+            SYNHRONIZE ALL PROVIDER PRODUCTS
           </Button>
         </Row>
         <Row>
