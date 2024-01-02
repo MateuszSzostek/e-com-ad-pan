@@ -75,6 +75,11 @@ const m = 16;
 export default function AddProductModal() {
   const formRef = useRef(null);
   const warehouseDataFormRef = useRef(null);
+  const [ownForm] = Form.useForm();
+  const [providerForm] = Form.useForm();
+
+  console.log(ownForm);
+  console.log(providerForm);
 
   const [selectProdyctModalOpened, setSelectProductModalOpened] =
     useState(false);
@@ -83,6 +88,9 @@ export default function AddProductModal() {
 
   const showSelectProductModal = () => {
     setSelectProductModalOpened(true);
+  };
+  const hideSelectProductModal = () => {
+    setSelectProductModalOpened(false);
   };
 
   const onFinish = (values: any) => {
@@ -94,6 +102,67 @@ export default function AddProductModal() {
     console.log("Failed:", errorInfo);
     console.error(formRef);
   };
+
+  function copyInputHandler(record) {
+    ownForm.setFieldValue(record.name, record.value);
+  }
+
+  function handleSetMargin() {
+    const providerPrice = ownForm.getFieldValue("providerPrice");
+    const margin = ownForm.getFieldValue("margin") / 100 + 1;
+    const marginValue = providerPrice * margin;
+    const priceWithMargin = providerPrice + marginValue;
+    const vat = ownForm.getFieldValue("vat") / 100 + 1;
+    const priceWithVat = marginValue * vat;
+
+    console.log(providerPrice);
+    console.log(margin);
+    console.log(vat);
+
+    console.log(marginValue);
+
+    console.log(priceWithMargin);
+
+    ownForm.setFieldValue("price", priceWithVat);
+    ownForm.setFieldValue(
+      "netProfit",
+      marginValue - ownForm.getFieldValue("providerPrice")
+    );
+  }
+
+  function selectProductHandler(props: IkonkaWarehouseFieldType) {
+    const { setFieldValue } = providerForm;
+
+    setFieldValue("kod_kreskowy", props.kod_kreskowy);
+    setFieldValue("nazwa", props.nazwa);
+    setFieldValue("dostawca", props.dostawca);
+    setFieldValue("cena", props.cena);
+    setFieldValue("grupa_rabatowa", props.grupa_rabatowa);
+    setFieldValue("vat", props.vat);
+    setFieldValue(
+      "sugerowana_cena_detaliczna",
+      props.sugerowana_cena_detaliczna
+    );
+    setFieldValue("opis_krotki", props.opis_krotki);
+    setFieldValue("opis", props.opis);
+    setFieldValue("zdp", props.zdp);
+    setFieldValue("czas_dostawy", props.czas_dostawy);
+    setFieldValue("najblizsza_dostawa", props.najblizsza_dostawa);
+    setFieldValue("dlugosc", props.dlugosc);
+    setFieldValue("wysokosc", props.wysokosc);
+    setFieldValue("waga", props.waga);
+    setFieldValue("sztuk_w_kartonie", props.sztuk_w_kartonie);
+    setFieldValue("stan", props.stan);
+    setFieldValue("kod", props.kod);
+    setFieldValue("link_do_instrukcji", props.link_do_instrukcji);
+    setFieldValue("link_do_zdjec", props.link_do_zdjec);
+    setFieldValue("kategoria", props.kategoria);
+    setFieldValue("objetosc", props.objetosc);
+    setFieldValue("zdjecia", props.zdjecia);
+    setFieldValue("dostawca", "IKONKA");
+
+    console.log("PRODUCT SELECTED");
+  }
 
   return (
     <>
@@ -114,6 +183,7 @@ export default function AddProductModal() {
             </Col>
           </Row>
           <Form
+            form={ownForm}
             ref={formRef}
             name="basic"
             labelCol={{ span: 10 }}
@@ -171,7 +241,7 @@ export default function AddProductModal() {
                   name="price"
                   rules={[{ required: true, message: "Price is required" }]}
                 >
-                  <Input placeholder="Enter price" />
+                  <Input placeholder="Enter price" disabled={true} />
                 </Form.Item>
               </Col>
               <Col span={8}>
@@ -192,7 +262,10 @@ export default function AddProductModal() {
                   name="margin"
                   rules={[{ required: true, message: "Margin is required" }]}
                 >
-                  <Input placeholder="Enter margin price" />
+                  <Input
+                    placeholder="Enter margin price"
+                    onChange={handleSetMargin}
+                  />
                 </Form.Item>
               </Col>
             </Row>
@@ -214,7 +287,7 @@ export default function AddProductModal() {
                     { required: true, message: "Net profit is required" },
                   ]}
                 >
-                  <Input placeholder="Enter net profit" />
+                  <Input placeholder="Enter net profit" disabled={true} />
                 </Form.Item>
               </Col>
               <Col span={8}>
@@ -702,6 +775,7 @@ export default function AddProductModal() {
         </Col>
         <Col span={12}>
           <Form
+            form={providerForm}
             ref={warehouseDataFormRef}
             name="warehouseDataFormRef"
             labelCol={{ span: 24 }}
@@ -732,7 +806,17 @@ export default function AddProductModal() {
                   >
                     <Input disabled={true} />
                   </Form.Item>
-                  <Button style={{ marginTop: "31px" }}>C</Button>
+                  <Button
+                    style={{ marginTop: "31px" }}
+                    onClick={() =>
+                      copyInputHandler({
+                        name: "id",
+                        value: providerForm.getFieldValue("kod_kreskowy"),
+                      })
+                    }
+                  >
+                    C
+                  </Button>
                 </Row>
               </Col>
               <Col span={8}>
@@ -743,7 +827,17 @@ export default function AddProductModal() {
                   >
                     <Input disabled={true} />
                   </Form.Item>
-                  <Button style={{ marginTop: "31px" }}>C</Button>
+                  <Button
+                    style={{ marginTop: "31px" }}
+                    onClick={() =>
+                      copyInputHandler({
+                        name: "name",
+                        value: providerForm.getFieldValue("nazwa"),
+                      })
+                    }
+                  >
+                    C
+                  </Button>
                 </Row>
               </Col>
               <Col span={8}>
@@ -754,7 +848,17 @@ export default function AddProductModal() {
                   >
                     <Input disabled={true} />
                   </Form.Item>
-                  <Button style={{ marginTop: "31px" }}>C</Button>
+                  <Button
+                    style={{ marginTop: "31px" }}
+                    onClick={() =>
+                      copyInputHandler({
+                        name: "Provider",
+                        value: providerForm.getFieldValue("dostawca"),
+                      })
+                    }
+                  >
+                    C
+                  </Button>
                 </Row>
               </Col>
             </Row>
@@ -764,7 +868,17 @@ export default function AddProductModal() {
                   <Form.Item<IkonkaWarehouseFieldType> label="cena" name="cena">
                     <Input disabled={true} />
                   </Form.Item>
-                  <Button style={{ marginTop: "31px" }}>C</Button>
+                  <Button
+                    style={{ marginTop: "31px" }}
+                    onClick={() =>
+                      copyInputHandler({
+                        name: "providerPrice",
+                        value: providerForm.getFieldValue("cena"),
+                      })
+                    }
+                  >
+                    C
+                  </Button>
                 </Row>
               </Col>
               <Col span={8}>
@@ -775,7 +889,9 @@ export default function AddProductModal() {
                   >
                     <Input disabled={true} />
                   </Form.Item>
-                  <Button style={{ marginTop: "31px" }}>C</Button>
+                  {
+                    //<Button style={{ marginTop: "31px" }}>C</Button>
+                  }
                 </Row>
               </Col>
               <Col span={8}></Col>
@@ -786,7 +902,17 @@ export default function AddProductModal() {
                   <Form.Item<IkonkaWarehouseFieldType> label="vat" name="vat">
                     <Input disabled={true} />
                   </Form.Item>
-                  <Button style={{ marginTop: "31px" }}>C</Button>
+                  <Button
+                    style={{ marginTop: "31px" }}
+                    onClick={() =>
+                      copyInputHandler({
+                        name: "vat",
+                        value: providerForm.getFieldValue("vat"),
+                      })
+                    }
+                  >
+                    C
+                  </Button>
                 </Row>
               </Col>
               <Col span={8}></Col>
@@ -798,7 +924,19 @@ export default function AddProductModal() {
                   >
                     <Input disabled={true} />
                   </Form.Item>
-                  <Button style={{ marginTop: "31px" }}>C</Button>
+                  <Button
+                    style={{ marginTop: "31px" }}
+                    onClick={() =>
+                      copyInputHandler({
+                        name: "suggestedDetailPrice",
+                        value: providerForm.getFieldValue(
+                          "sugerowana_cena_detaliczna"
+                        ),
+                      })
+                    }
+                  >
+                    C
+                  </Button>
                 </Row>
               </Col>
             </Row>
@@ -810,6 +948,17 @@ export default function AddProductModal() {
                   labelCol={{ span: 24, offset: 0 }}
                 >
                   <TextArea rows={3} />
+                  <Button
+                    style={{ marginTop: "31px" }}
+                    onClick={() =>
+                      copyInputHandler({
+                        name: "shortDescription",
+                        value: providerForm.getFieldValue("opis_krotki"),
+                      })
+                    }
+                  >
+                    C
+                  </Button>
                 </Form.Item>
               </Col>
             </Row>
@@ -996,7 +1145,10 @@ export default function AddProductModal() {
         width={1440}
         footer={() => <></>}
       >
-        <SelectProductModal />
+        <SelectProductModal
+          selectProductHandler={selectProductHandler}
+          hideSelectProductModal={hideSelectProductModal}
+        />
       </Modal>
     </>
   );

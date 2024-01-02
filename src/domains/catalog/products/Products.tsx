@@ -2,7 +2,7 @@ import React from "react";
 import Layout from "../../layout";
 import { RootState } from "../../../store";
 import { useSelector } from "react-redux";
-import { Table, Row, Col, Tag, Button, Modal } from "antd";
+import { Table, Row, Col, Tag, Button, Modal, notification, Spin } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { IProduct } from "./services/product/productSlice.types";
 import { useState } from "react";
@@ -66,13 +66,24 @@ export default function Products() {
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [modalText, setModalText] = useState("Content of the modal");
+  const [api, contextHolder] = notification.useNotification();
+
+  const openNotification = () => {
+    api.open({
+      message: "Success",
+      description: "All stores data has been synchronized succesfully!",
+      duration: 4,
+    });
+  };
 
   const showModal = () => {
     setOpen(true);
   };
 
   const synhronizeAllProvidersProducts = () => {
-    trigger({});
+    trigger({}).then(() => {
+      openNotification();
+    });
     console.log(result);
   };
 
@@ -92,6 +103,7 @@ export default function Products() {
 
   return (
     <Layout>
+      {contextHolder}
       <Col>
         <Row>Products</Row>
         <Row>Category missing, pending price update, pending updates</Row>
@@ -99,7 +111,11 @@ export default function Products() {
           <Button type="primary" onClick={showModal}>
             ADD PRODUCT
           </Button>
-          <Button type="primary" onClick={synhronizeAllProvidersProducts}>
+          <Button
+            type="primary"
+            onClick={synhronizeAllProvidersProducts}
+            loading={result.isLoading}
+          >
             SYNHRONIZE ALL PROVIDER PRODUCTS
           </Button>
         </Row>

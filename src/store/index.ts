@@ -18,10 +18,20 @@ import {
   REGISTER,
 } from "redux-persist";
 import { combineReducers } from "@reduxjs/toolkit";
+import { createFilter } from "redux-persist-transform-filter";
+
+const saveUserLoginSubsetFilter = createFilter("userSlice", [
+  "accessToken",
+  "refreshToken",
+  "name",
+  "surname",
+]);
 
 const persistConfig = {
   key: "root",
   storage,
+  whitelist: ["userSignup", "userLogin"],
+  transforms: [saveUserLoginSubsetFilter],
 };
 
 const reducers = combineReducers({
