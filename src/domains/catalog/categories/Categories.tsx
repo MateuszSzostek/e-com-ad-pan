@@ -57,7 +57,7 @@ const columnsData: ColumnsType<IProduct> = [
   },
 ];
 
-export default function Categories() {
+export default function Products() {
   const productsData = useSelector((state: RootState) => state.products);
   const [trigger, result, lastPromiseInfo] = useLazyFetchAllIkonkaProductsQuery(
     {}

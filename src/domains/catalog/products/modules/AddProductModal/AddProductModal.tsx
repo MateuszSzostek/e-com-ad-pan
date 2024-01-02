@@ -948,18 +948,18 @@ export default function AddProductModal() {
                   labelCol={{ span: 24, offset: 0 }}
                 >
                   <TextArea rows={3} />
-                  <Button
-                    style={{ marginTop: "31px" }}
-                    onClick={() =>
-                      copyInputHandler({
-                        name: "shortDescription",
-                        value: providerForm.getFieldValue("opis_krotki"),
-                      })
-                    }
-                  >
-                    C
-                  </Button>
                 </Form.Item>
+                <Button
+                  style={{ marginTop: "31px" }}
+                  onClick={() =>
+                    copyInputHandler({
+                      name: "shortDescription",
+                      value: providerForm.getFieldValue("opis_krotki"),
+                    })
+                  }
+                >
+                  C
+                </Button>
               </Col>
             </Row>
             <Row gutter={[m, m]}>
@@ -971,6 +971,17 @@ export default function AddProductModal() {
                 >
                   <TextArea rows={4} />
                 </Form.Item>
+                <Button
+                  style={{ marginTop: "31px" }}
+                  onClick={() =>
+                    copyInputHandler({
+                      name: "description",
+                      value: providerForm.getFieldValue("opis"),
+                    })
+                  }
+                >
+                  C
+                </Button>
               </Col>
             </Row>
 
@@ -980,7 +991,17 @@ export default function AddProductModal() {
                   <Form.Item<IkonkaWarehouseFieldType> label="zdp" name="zdp">
                     <Input disabled={true} />
                   </Form.Item>
-                  <Button style={{ marginTop: "31px" }}>C</Button>
+                  <Button
+                    style={{ marginTop: "31px" }}
+                    onClick={() =>
+                      copyInputHandler({
+                        name: "tooBigForAParcelLocker",
+                        value: providerForm.getFieldValue("zdp"),
+                      })
+                    }
+                  >
+                    C
+                  </Button>
                 </Row>
               </Col>
               <Col span={8}>
@@ -991,7 +1012,17 @@ export default function AddProductModal() {
                   >
                     <Input disabled={true} />
                   </Form.Item>
-                  <Button style={{ marginTop: "31px" }}>C</Button>
+                  <Button
+                    style={{ marginTop: "31px" }}
+                    onClick={() =>
+                      copyInputHandler({
+                        name: "deliveryTime",
+                        value: providerForm.getFieldValue("czas_dostawy"),
+                      })
+                    }
+                  >
+                    C
+                  </Button>
                 </Row>
               </Col>
               <Col span={8}>
@@ -1002,7 +1033,17 @@ export default function AddProductModal() {
                   >
                     <Input disabled={true} />
                   </Form.Item>
-                  <Button style={{ marginTop: "31px" }}>C</Button>
+                  <Button
+                    style={{ marginTop: "31px" }}
+                    onClick={() =>
+                      copyInputHandler({
+                        name: "nextDelivery",
+                        value: providerForm.getFieldValue("najblizsza_dostawa"),
+                      })
+                    }
+                  >
+                    C
+                  </Button>
                 </Row>
               </Col>
             </Row>
@@ -1016,7 +1057,17 @@ export default function AddProductModal() {
                   >
                     <Input disabled={true} />
                   </Form.Item>
-                  <Button style={{ marginTop: "31px" }}>C</Button>
+                  <Button
+                    style={{ marginTop: "31px" }}
+                    onClick={() =>
+                      copyInputHandler({
+                        name: "length",
+                        value: providerForm.getFieldValue("dlugosc"),
+                      })
+                    }
+                  >
+                    C
+                  </Button>
                 </Row>
               </Col>
               <Col span={8}>
@@ -1027,7 +1078,17 @@ export default function AddProductModal() {
                   >
                     <Input disabled={true} />
                   </Form.Item>
-                  <Button style={{ marginTop: "31px" }}>C</Button>
+                  <Button
+                    style={{ marginTop: "31px" }}
+                    onClick={() =>
+                      copyInputHandler({
+                        name: "height",
+                        value: providerForm.getFieldValue("wysokosc"),
+                      })
+                    }
+                  >
+                    C
+                  </Button>
                 </Row>
               </Col>
               <Col span={8}>
@@ -1035,7 +1096,17 @@ export default function AddProductModal() {
                   <Form.Item<IkonkaWarehouseFieldType> label="waga" name="waga">
                     <Input disabled={true} />
                   </Form.Item>
-                  <Button style={{ marginTop: "31px" }}>C</Button>
+                  <Button
+                    style={{ marginTop: "31px" }}
+                    onClick={() =>
+                      copyInputHandler({
+                        name: "weight",
+                        value: providerForm.getFieldValue("waga"),
+                      })
+                    }
+                  >
+                    C
+                  </Button>
                 </Row>
               </Col>
             </Row>
@@ -1049,7 +1120,17 @@ export default function AddProductModal() {
                   >
                     <Input disabled={true} />
                   </Form.Item>
-                  <Button style={{ marginTop: "31px" }}>C</Button>
+                  <Button
+                    style={{ marginTop: "31px" }}
+                    onClick={() =>
+                      copyInputHandler({
+                        name: "amountInBox",
+                        value: providerForm.getFieldValue("sztuk_w_kartonie"),
+                      })
+                    }
+                  >
+                    C
+                  </Button>
                 </Row>
               </Col>
               <Col span={8}>
@@ -1057,7 +1138,17 @@ export default function AddProductModal() {
                   <Form.Item<IkonkaWarehouseFieldType> label="stan" name="stan">
                     <Input disabled={true} />
                   </Form.Item>
-                  <Button style={{ marginTop: "31px" }}>C</Button>
+                  <Button
+                    style={{ marginTop: "31px" }}
+                    onClick={() =>
+                      copyInputHandler({
+                        name: "state",
+                        value: providerForm.getFieldValue("stan"),
+                      })
+                    }
+                  >
+                    C
+                  </Button>
                 </Row>
               </Col>
               <Col span={8}>
@@ -1065,7 +1156,17 @@ export default function AddProductModal() {
                   <Form.Item<IkonkaWarehouseFieldType> label="kod" name="kod">
                     <Input disabled={true} />
                   </Form.Item>
-                  <Button style={{ marginTop: "31px" }}>C</Button>
+                  <Button
+                    style={{ marginTop: "31px" }}
+                    onClick={() =>
+                      copyInputHandler({
+                        name: "code",
+                        value: providerForm.getFieldValue("kod"),
+                      })
+                    }
+                  >
+                    C
+                  </Button>
                 </Row>
               </Col>
             </Row>
@@ -1079,7 +1180,17 @@ export default function AddProductModal() {
                   >
                     <Input disabled={true} />
                   </Form.Item>
-                  <Button style={{ marginTop: "31px" }}>C</Button>
+                  <Button
+                    style={{ marginTop: "31px" }}
+                    onClick={() =>
+                      copyInputHandler({
+                        name: "linkToInstruction",
+                        value: providerForm.getFieldValue("link_do_instrukcji"),
+                      })
+                    }
+                  >
+                    C
+                  </Button>
                 </Row>
               </Col>
               <Col span={8}>
@@ -1090,7 +1201,17 @@ export default function AddProductModal() {
                   >
                     <Input disabled={true} />
                   </Form.Item>
-                  <Button style={{ marginTop: "31px" }}>C</Button>
+                  <Button
+                    style={{ marginTop: "31px" }}
+                    onClick={() =>
+                      copyInputHandler({
+                        name: "linkToPictures",
+                        value: providerForm.getFieldValue("link_do_zdjec"),
+                      })
+                    }
+                  >
+                    C
+                  </Button>
                 </Row>
               </Col>
               <Col span={8}>
@@ -1115,7 +1236,17 @@ export default function AddProductModal() {
                   >
                     <Input disabled={true} />
                   </Form.Item>
-                  <Button style={{ marginTop: "31px" }}>C</Button>
+                  <Button
+                    style={{ marginTop: "31px" }}
+                    onClick={() =>
+                      copyInputHandler({
+                        name: "volume",
+                        value: providerForm.getFieldValue("objetosc"),
+                      })
+                    }
+                  >
+                    C
+                  </Button>
                 </Row>
               </Col>
               <Col span={8}></Col>
