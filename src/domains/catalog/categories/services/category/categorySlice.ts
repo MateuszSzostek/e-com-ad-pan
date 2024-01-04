@@ -8,10 +8,8 @@ import {
   IDeleteCategoryResponse,
   IGetAllCategoriesRequest,
   IGetAllCategoriesResponse,
-  ILinkCategoriesRequest,
-  ILinkCategoriesResponse,
-  IUnlinkCategoriesRequest,
-  IUnlinkCategoriesResponse,
+  IUpdateCategoriesRequest,
+  IUpdateCategoriesResponse,
 } from "./categorySlice.types";
 
 export const categoryApi = createApi({
@@ -32,39 +30,28 @@ export const categoryApi = createApi({
         response.status,
     }),
 
-    linkCategories: builder.mutation<
-      ILinkCategoriesRequest,
-      ILinkCategoriesResponse
+    updateCategories: builder.mutation<
+      IUpdateCategoriesRequest,
+      IUpdateCategoriesResponse
     >({
       query: () => ({
-        url: `link-categories`,
+        url: `update-categories`,
         method: "POST",
         body: {},
       }),
-      transformResponse: (response: ILinkCategoriesResponse) => response,
-      transformErrorResponse: (response: { status: string | number }) =>
-        response.status,
-    }),
-
-    unlinkCategories: builder.mutation<
-      IUnlinkCategoriesRequest,
-      IUnlinkCategoriesResponse
-    >({
-      query: () => ({
-        url: `unlink-categories`,
-        method: "POST",
-        body: {},
-      }),
-      transformResponse: (response: IUnlinkCategoriesResponse) => response,
+      transformResponse: (response: IUpdateCategoriesResponse) => response,
       transformErrorResponse: (response: { status: string | number }) =>
         response.status,
     }),
 
     addCategory: builder.mutation<IAddCategoryRequest, IAddCategoryResponse>({
-      query: () => ({
+      query: (payload) => ({
         url: `add-category`,
         method: "POST",
-        body: {},
+        body: {
+          name: payload.category.name,
+          parentName: payload.category.parentName,
+        },
       }),
       transformResponse: (response: IAddCategoryRequest) => response,
       transformErrorResponse: (response: { status: string | number }) =>
@@ -88,8 +75,7 @@ export const categoryApi = createApi({
 
 export const {
   useGetAllCategoriesQuery,
-  useLinkCategoriesMutation,
-  useUnlinkCategoriesMutation,
+  useUpdateCategoriesMutation,
   useAddCategoryMutation,
   useDeleteCategoryMutation,
 } = categoryApi;

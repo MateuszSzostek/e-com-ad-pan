@@ -1,14 +1,11 @@
 export interface IGetAllCategoriesRequest {}
 export interface IGetAllCategoriesResponse {}
 
-export interface ILinkCategoriesRequest {}
-export interface ILinkCategoriesResponse {}
-
-export interface IUnlinkCategoriesRequest {}
-export interface IUnlinkCategoriesResponse {}
+export interface IUpdateCategoriesRequest {}
+export interface IUpdateCategoriesResponse {}
 
 export interface IAddCategoryRequest {
-  categoryName: string;
+  category: ICategory;
 }
 export interface IAddCategoryResponse {
   category: ICategory;

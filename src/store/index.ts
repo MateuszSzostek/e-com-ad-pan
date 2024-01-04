@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { accessApi } from "../domains/access/services/access/accessSlice";
 import { productApi } from "../domains/catalog/products/services/product/productSlice";
 import { ikonkaProductApi } from "../domains/catalog/products/services/ikonkaProduct/ikonkaProductSlice";
+import { categoryApi } from "../domains/catalog/categories/services/category/categorySlice";
 import userReducer from "../shared/services/user/userSlice";
 import productsReducer from "../shared/services/products/productsSlice";
 import providerProductsReducer from "../shared/services/providerProducts/providerProductsSlice";
@@ -30,7 +31,7 @@ const saveUserLoginSubsetFilter = createFilter("userSlice", [
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["userSignup", "userLogin"],
+  whitelist: ["user"],
   transforms: [saveUserLoginSubsetFilter],
 };
 
@@ -38,6 +39,7 @@ const reducers = combineReducers({
   accessApi: accessApi.reducer,
   productApi: productApi.reducer,
   ikonkaProductApi: ikonkaProductApi.reducer,
+  categoryApi: categoryApi.reducer,
   user: userReducer,
   products: productsReducer,
   providerProducts: providerProductsReducer,
@@ -56,6 +58,7 @@ export const store = configureStore({
       accessApi.middleware,
       productApi.middleware,
       ikonkaProductApi.middleware,
+      categoryApi.middleware,
     ]),
   devTools: process.env.NODE_ENV !== "production",
 });

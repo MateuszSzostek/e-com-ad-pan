@@ -56,12 +56,12 @@ export default function Layout({ children }: PropsWithChildren<ILayout>) {
           {
             key: "products",
             label: "Products",
-            onClick: () => navigate("/products"),
+            onClick: () => navigate("/catalog/products"),
           },
           {
             key: "categories",
             label: "Categories",
-            onClick: () => navigate("/categories"),
+            onClick: () => navigate("/catalog/categories"),
           },
         ],
       },
@@ -73,12 +73,12 @@ export default function Layout({ children }: PropsWithChildren<ILayout>) {
           {
             key: "orders",
             label: "Orders",
-            onClick: () => navigate("/orders"),
+            onClick: () => navigate("/accauting/orders"),
           },
           {
             key: "invoices",
             label: "Invoices",
-            onClick: () => navigate("/invoices"),
+            onClick: () => navigate("/accauting/invoices"),
           },
         ],
       },
