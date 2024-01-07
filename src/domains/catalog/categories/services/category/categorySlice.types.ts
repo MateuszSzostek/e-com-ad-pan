@@ -8,7 +8,7 @@ export interface IAddCategoryRequest {
   category: ICategory;
 }
 export interface IAddCategoryResponse {
-  category: ICategory;
+  data: { category: ICategory };
 }
 
 export interface IDeleteCategoryRequest {}

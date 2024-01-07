@@ -26,8 +26,8 @@ export default function Products() {
     });
   };
 
-  const showAddCategoryModal = () => {
-    setAddCategoryModalOpened(true);
+  const toggleAddCategoryModal = () => {
+    setAddCategoryModalOpened(!addCategoryModalOpened);
   };
 
   const handleOk = () => {
@@ -50,7 +50,7 @@ export default function Products() {
       <Col>
         <Row>Categories</Row>
         <Row>
-          <Button type="primary" onClick={showAddCategoryModal}>
+          <Button type="primary" onClick={toggleAddCategoryModal}>
             Add Category
           </Button>
         </Row>
@@ -59,10 +59,10 @@ export default function Products() {
         open={addCategoryModalOpened}
         onOk={handleOk}
         confirmLoading={confirmLoading}
-        onCancel={handleAddCategoryModalOpenedCancel}
+        onCancel={toggleAddCategoryModal}
         footer={() => <></>}
       >
-        <AddCategoryModal />
+        <AddCategoryModal toggleAddCategoryModal={toggleAddCategoryModal} />
       </Modal>
       <Modal
         open={editCategoryModalOpened}

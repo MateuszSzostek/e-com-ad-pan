@@ -1,21 +1,41 @@
 import React from "react";
-import { Col, Input, Typography, Form, Button } from "antd";
+import { Col, Input, Typography, Form, Button, notification } from "antd";
 import { useAddCategoryMutation } from "../../services/category/categorySlice";
+import IAddCategoryModal from "./AddCategoryModal.types";
 
 type AddCategoryFieldType = {
   name: string;
   parentName: string;
 };
 
-export default function AddCategoryModal() {
+export default function AddCategoryModal({
+  toggleAddCategoryModal,
+}: IAddCategoryModal) {
   const [addCategory, result] = useAddCategoryMutation();
   const [addCategoryForm] = Form.useForm();
+  const [api, contextHolder] = notification.useNotification();
 
   const onFinish = (values: any) => {
     addCategory({
       category: { name: values.name, parentName: values.parentName },
+    }).then((res) => {
+      console.log(res);
+      if (res.data.error) {
+        api.open({
+          message: "Error",
+          description: res.data.error,
+          duration: 4,
+        });
+      } else if (res.data.category.name) {
+        api.open({
+          message: "Success",
+          description: "Category has been added successfully",
+          duration: 4,
+        });
+        toggleAddCategoryModal();
+      }
     });
-    console.log("Success:", values);
+    // console.log("Success:", values);
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -24,6 +44,7 @@ export default function AddCategoryModal() {
 
   return (
     <>
+      {contextHolder}
       <Col>
         <Typography.Title level={3}>Add Category</Typography.Title>
 
@@ -55,7 +76,7 @@ export default function AddCategoryModal() {
             <Button type="primary" htmlType="submit">
               Add Category
             </Button>
-            <Button>Discard</Button>
+            <Button onClick={toggleAddCategoryModal}>Discard</Button>
           </Col>
         </Form>
       </Col>

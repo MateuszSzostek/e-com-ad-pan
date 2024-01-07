@@ -44,7 +44,7 @@ export const categoryApi = createApi({
         response.status,
     }),
 
-    addCategory: builder.mutation<IAddCategoryRequest, IAddCategoryResponse>({
+    addCategory: builder.mutation<IAddCategoryResponse, IAddCategoryRequest>({
       query: (payload) => ({
         url: `add-category`,
         method: "POST",
@@ -53,7 +53,7 @@ export const categoryApi = createApi({
           parentName: payload.category.parentName,
         },
       }),
-      transformResponse: (response: IAddCategoryRequest) => response,
+      transformResponse: (response: IAddCategoryResponse) => response,
       transformErrorResponse: (response: { status: string | number }) =>
         response.status,
     }),
