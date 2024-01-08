@@ -1,3 +1,9 @@
+export interface IGetCategoriesTreeRequest {}
+export interface IGetCategoriesTreeResponse {
+  categoriesTree: string;
+  error: string;
+}
+
 export interface IGetAllCategoriesRequest {}
 export interface IGetAllCategoriesResponse {}
 

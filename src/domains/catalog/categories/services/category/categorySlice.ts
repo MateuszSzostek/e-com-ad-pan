@@ -10,12 +10,27 @@ import {
   IGetAllCategoriesResponse,
   IUpdateCategoriesRequest,
   IUpdateCategoriesResponse,
+  IGetCategoriesTreeRequest,
+  IGetCategoriesTreeResponse,
 } from "./categorySlice.types";
 
 export const categoryApi = createApi({
   reducerPath: "categoryApi",
   baseQuery: baseJwtQuery(baseCategoryUrl),
   endpoints: (builder) => ({
+    getCategoriesTree: builder.query<
+      IGetCategoriesTreeRequest,
+      IGetCategoriesTreeResponse
+    >({
+      query: () => ({
+        url: `get-categories-tree`,
+        method: "GET",
+      }),
+      transformResponse: (response: IGetCategoriesTreeResponse) => response,
+      transformErrorResponse: (response: { status: string | number }) =>
+        response.status,
+    }),
+
     getAllCategories: builder.query<
       IGetAllCategoriesRequest,
       IGetAllCategoriesResponse
@@ -74,6 +89,7 @@ export const categoryApi = createApi({
 });
 
 export const {
+  useGetCategoriesTreeQuery,
   useGetAllCategoriesQuery,
   useUpdateCategoriesMutation,
   useAddCategoryMutation,
