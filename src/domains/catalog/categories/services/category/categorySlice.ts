@@ -17,6 +17,7 @@ import {
 export const categoryApi = createApi({
   reducerPath: "categoryApi",
   baseQuery: baseJwtQuery(baseCategoryUrl),
+  tagTypes: ["Category"],
   endpoints: (builder) => ({
     getCategoriesTree: builder.query<
       IGetCategoriesTreeRequest,
@@ -26,6 +27,7 @@ export const categoryApi = createApi({
         url: `get-categories-tree`,
         method: "GET",
       }),
+      providesTags: ["Category"],
       transformResponse: (response: IGetCategoriesTreeResponse) => response,
       transformErrorResponse: (response: { status: string | number }) =>
         response.status,
@@ -68,6 +70,7 @@ export const categoryApi = createApi({
           parentName: payload.category.parentName,
         },
       }),
+      invalidatesTags: ["Category"],
       transformResponse: (response: IAddCategoryResponse) => response,
       transformErrorResponse: (response: { status: string | number }) =>
         response.status,

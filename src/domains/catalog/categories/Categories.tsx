@@ -81,6 +81,18 @@ export default function Categories() {
             </p>
           )}
         </Row>
+        {categoriesTreeData?.categoriesTree && (
+          <Row>
+            <p>
+              {JSON.parse(categoriesTreeData?.categoriesTree)?.name}
+              {JSON.parse(categoriesTreeData?.categoriesTree)?.children?.map(
+                (el) => (
+                  <p>- {el?.name}</p>
+                )
+              )}
+            </p>
+          </Row>
+        )}
       </Col>
       <Modal
         open={addCategoryModalOpened}

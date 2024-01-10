@@ -33,6 +33,8 @@ export default function AddCategoryModal({
           duration: 4,
         });
         toggleAddCategoryModal();
+        addCategoryForm.setFieldValue("name", "");
+        addCategoryForm.setFieldValue("parentName", "");
       }
     });
     // console.log("Success:", values);
